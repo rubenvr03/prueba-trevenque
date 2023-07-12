@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AlumnosController;
 use App\Http\Controllers\AsignaturasController;
-use App\Models\Matriculas;
+use App\Http\Controllers\MatriculasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +23,5 @@ Route::middleware(['auth'])->group(
     function(){
         Route::resource('/alumnos', AlumnosController::class);
         Route::resource('/asignaturas', AsignaturasController::class);
-        Route::resource('/matriculas', Matriculas::class);
+        Route::resource('/matriculas', MatriculasController::class);
     });

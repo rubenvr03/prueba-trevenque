@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matriculas;
 use App\Http\Requests\StoreMatriculasRequest;
 use App\Http\Requests\UpdateMatriculasRequest;
+use App\Models\Alumnos;
+use App\Models\Matriculas;
+use Illuminate\Http\Request;
 
 class MatriculasController extends Controller
 {
@@ -19,9 +21,10 @@ class MatriculasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(StoreMatriculasRequest $request)
+    public function create(Request $request)
     {
-        return view('matriculas.create');
+        $alumno = Alumnos::find($request->alumno_id);
+        return view('matriculas.create', compact('alumno'));
     }
 
     /**
@@ -51,7 +54,7 @@ class MatriculasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMatriculasRequest $request, Matriculas $matriculas)
+    public function update(StoreMatriculasRequest $request, Matriculas $matriculas)
     {
         //
     }

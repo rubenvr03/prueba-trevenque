@@ -15,13 +15,4 @@ class Asignaturas extends Model
         'alumnos_max',
         'curso_academico',
     ];
-
-    public function alumnosMatriculados(){
-        return $this->hasMany(AlumnoMatriculado::class);
-    }
-
-    public function limiteMatriculados(){
-        $limite = Asignaturas::get('alumnos_max');
-        dd($limite);
-    }
 }

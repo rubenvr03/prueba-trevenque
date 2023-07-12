@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Alumnos;
-use App\Models\Asignaturas;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('matriculas', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Alumnos::class);
-            $table->foreignIdFor(Asignaturas::class);
+            $table->integer('alumno_id', false, true)->default(0);
+            $table->integer('asignatura_id', false, true)->default(0);
             $table->timestamps();
         });
     }

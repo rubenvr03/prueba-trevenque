@@ -30,7 +30,7 @@
                     <input type="submit" value="Borrar Alumno" class="btn btn-danger">
                 </form>
             </td>
-            <th><a href="{{route('matriculas.create')}}" class="btn btn-success">Matricular Alumno</a></th>
+            <th><a href="{{route('matriculas.create')}}?alumno_id={{$alumno->id}}" class="btn btn-success">Matricular Alumno</a></th>
           </tr>
 
         @empty

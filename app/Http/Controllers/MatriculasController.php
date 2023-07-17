@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMatriculasRequest;
 use App\Http\Requests\UpdateMatriculasRequest;
 use App\Models\Alumnos;
+use App\Models\Asignaturas;
 use App\Models\Matriculas;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class MatriculasController extends Controller
     public function create(Request $request)
     {
         $alumno = Alumnos::find($request->alumno_id);
-        return view('matriculas.create', compact('alumno'));
+        $asignaturas = Asignaturas::all();
+        return view('matriculas.create', compact('alumno', 'asignaturas'));
     }
 
     /**
@@ -32,8 +34,25 @@ class MatriculasController extends Controller
      */
     public function store(StoreMatriculasRequest $request)
     {
-        //
+        $data = $request->all();
+        $id_alumno = intval($data['alumno_id']);
+        $id_asignatura = intval($data['asignatura_id']);
+        $asignatura = Asignaturas::find($id_asignatura);
+        $num_max_asignatura = $asignatura->alumnos_max;
+        $matriculasCount = $asignatura->matriculas->count();
+
+        if ($matriculasCount >= $num_max_asignatura) {
+            return redirect()->back()->withInput()->withErrors(['max_alumn' => 'Se alcanzó el número máximo de alumnos para esta asignatura.']);
+        }
+
+        $matricula = Matriculas::create([
+            'alumno_id' => $id_alumno,
+            'asignatura_id' => $id_asignatura
+        ]);
+
+        return redirect()->route('alumnos.index');
     }
+
 
     /**
      * Display the specified resource.

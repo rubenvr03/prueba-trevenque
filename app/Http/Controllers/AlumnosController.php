@@ -6,6 +6,7 @@ use App\Models\Alumnos;
 use App\Http\Requests\StoreAlumnosRequest;
 use App\Http\Requests\UpdateAlumnosRequest;
 use App\Models\Asignaturas;
+use App\Models\Matriculas;
 use Carbon\Carbon;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -56,12 +57,15 @@ class AlumnosController extends Controller
      */
     public function show(Alumnos $alumnos, $id)
     {
-        $alumno = $alumnos::find($id);
+        $alumno = $alumnos::findOrFail($id);
         $fecha = $alumno->year_born;
         $fecha = Carbon::parse($fecha)->locale('es');
         $fechaCarbon = $fecha->isoFormat('LL');
         $alumno['date_born'] = $fechaCarbon;
-        return view('alumnos.show', compact('alumno'));
+        $asignaturas = $alumno->asignaturas;
+
+
+        return view('alumnos.show', compact('alumno', 'asignaturas'));
     }
 
     /**

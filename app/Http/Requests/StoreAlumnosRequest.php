@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAlumnosRequest extends FormRequest
@@ -24,7 +25,13 @@ class StoreAlumnosRequest extends FormRequest
         return [
             'name' => 'required',
             'surname' => 'required',
-            'year_born' => 'required|date',
+            'year_born' => ['required', 'date', 'before_or_equal:' . Carbon::now()->subYears(17)->format('Y-m-d')],
         ];
     }
+    public function messages()
+{
+    return [
+        'year_born.before_or_equal' => 'El alumno debe tener al menos 17 años.',
+    ];
+}
 }

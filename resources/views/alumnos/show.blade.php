@@ -14,7 +14,10 @@
                     <h2><strong>Calificaciones:</strong> {{$alumno->raitings}}</h2>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <h2><strong>Matrícula:</strong> {{$alumno->registration}}</h2>
+                    <h2><strong>Matrícula:</strong></h2>
+                    @foreach ($asignaturas as $asignatura )
+                        <p>{{$asignatura->nombre}}</p>
+                    @endforeach
                 </div>
             </div>
             <div class="col-md-6 mb-3">

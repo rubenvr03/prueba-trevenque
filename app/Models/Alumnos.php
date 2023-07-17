@@ -15,7 +15,8 @@ class Alumnos extends Model
         'year_born',
     ];
 
-    public function asignaturas(){
-        $this->belongsToMany(Asignaturas::class);
+    public function asignaturas()
+    {
+        return $this->belongsToMany(Asignaturas::class, 'matriculas', 'alumno_id', 'asignatura_id');
     }
 }

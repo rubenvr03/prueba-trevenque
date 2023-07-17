@@ -11,7 +11,7 @@ class StoreMatriculasRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreMatriculasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "alumno_id" => 'required|min:1',
+            "asignatura_id" => 'required|min:1',
         ];
     }
 }
